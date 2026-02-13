@@ -1,31 +1,29 @@
 import { Heart, Users, Megaphone } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const pathways = [
   {
     icon: Heart,
     title: "Survivor Assistance",
-    description:
-      "Find immediate help, safety resources, legal assistance, and support programs designed to empower survivors on their path to safety.",
+    description: "Find immediate help, safety resources, legal assistance, and support programs designed to empower survivors on their path to safety.",
     cta: "Find Help",
-    href: "#survivors",
+    href: "/survivors",
     accent: "coral",
   },
   {
     icon: Users,
     title: "Advocate Corner",
-    description:
-      "Access training, toolkits, and resources to strengthen your work supporting survivors across Ohio's 70+ member programs.",
+    description: "Access training, toolkits, and resources to strengthen your work supporting survivors across Ohio's 70+ member programs.",
     cta: "Explore Resources",
-    href: "#advocates",
+    href: "/advocates",
     accent: "primary",
   },
   {
     icon: Megaphone,
     title: "Policy & Press",
-    description:
-      "Stay informed on Ohio's legislative landscape, read our reports, and find media resources on domestic violence awareness.",
+    description: "Stay informed on Ohio's legislative landscape, read our reports, and find media resources on domestic violence awareness.",
     cta: "View Updates",
-    href: "#policy",
+    href: "/policy",
     accent: "primary",
   },
 ];
@@ -45,9 +43,9 @@ const AudiencePathways = () => {
 
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
           {pathways.map((p) => (
-            <a
+            <Link
               key={p.title}
-              href={p.href}
+              to={p.href}
               className="card-pathway group flex flex-col items-start text-left"
             >
               <div
@@ -70,7 +68,7 @@ const AudiencePathways = () => {
               >
                 {p.cta} →
               </span>
-            </a>
+            </Link>
           ))}
         </div>
       </div>

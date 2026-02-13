@@ -1,47 +1,27 @@
 import { useState } from "react";
 import { Menu, X, Phone, Search } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
-  {
-    label: "Survivor Assistance",
-    href: "#survivors",
-  },
-  {
-    label: "Advocate Corner",
-    href: "#advocates",
-  },
-  {
-    label: "Policy & Press",
-    href: "#policy",
-  },
-  {
-    label: "About Us",
-    href: "#about",
-  },
-  {
-    label: "Training",
-    href: "#training",
-  },
+  { label: "Survivor Assistance", href: "/survivors" },
+  { label: "Advocate Corner", href: "/advocates" },
+  { label: "Policy & Press", href: "/policy" },
+  { label: "About Us", href: "/about" },
+  { label: "Training", href: "/training" },
 ];
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <header className="sticky top-0 z-40 bg-card/95 backdrop-blur-md border-b border-border">
       {/* Top utility bar */}
       <div className="bg-secondary">
         <div className="container mx-auto px-4 py-2 flex items-center justify-end gap-6 text-xs font-body font-medium text-secondary-foreground">
-          <a href="#donate" className="hover:text-accent transition-colors">
-            Donate
-          </a>
-          <a href="#contact" className="hover:text-accent transition-colors">
-            Contact Us
-          </a>
-          <a
-            href="tel:18009349840"
-            className="flex items-center gap-1.5 hover:text-accent transition-colors"
-          >
+          <Link to="/donate" className="hover:text-accent transition-colors">Donate</Link>
+          <Link to="/contact" className="hover:text-accent transition-colors">Contact Us</Link>
+          <a href="tel:18009349840" className="flex items-center gap-1.5 hover:text-accent transition-colors">
             <Phone className="w-3 h-3" />
             1.800.934.9840
           </a>
@@ -53,8 +33,7 @@ const Header = () => {
 
       {/* Main navigation */}
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <a href="/" className="flex items-center gap-3 group" aria-label="ODVN Home">
+        <Link to="/" className="flex items-center gap-3 group" aria-label="ODVN Home">
           <div className="w-12 h-12 rounded-lg bg-primary flex items-center justify-center">
             <span className="text-primary-foreground font-heading font-bold text-lg">O</span>
           </div>
@@ -64,25 +43,27 @@ const Header = () => {
               Ohio Domestic Violence Network
             </div>
           </div>
-        </a>
+        </Link>
 
-        {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.label}
-              href={item.href}
-              className="px-4 py-2 text-sm font-body font-medium text-foreground/80 hover:text-primary rounded-lg hover:bg-secondary transition-colors"
+              to={item.href}
+              className={`px-4 py-2 text-sm font-body font-medium rounded-lg transition-colors ${
+                location.pathname === item.href
+                  ? "text-primary bg-secondary"
+                  : "text-foreground/80 hover:text-primary hover:bg-secondary"
+              }`}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
-          <a href="#help" className="btn-coral ml-3 text-xs !px-5 !py-2.5">
+          <Link to="/get-help" className="btn-coral ml-3 text-xs !px-5 !py-2.5">
             GET HELP NOW
-          </a>
+          </Link>
         </nav>
 
-        {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="lg:hidden p-2 rounded-lg hover:bg-secondary transition-colors"
@@ -92,23 +73,26 @@ const Header = () => {
         </button>
       </div>
 
-      {/* Mobile menu */}
       {mobileOpen && (
         <div className="lg:hidden border-t border-border bg-card">
           <nav className="container mx-auto px-4 py-4 flex flex-col gap-1" aria-label="Mobile navigation">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
-                href={item.href}
-                className="px-4 py-3 text-sm font-body font-medium text-foreground/80 hover:text-primary rounded-lg hover:bg-secondary transition-colors"
+                to={item.href}
+                className={`px-4 py-3 text-sm font-body font-medium rounded-lg transition-colors ${
+                  location.pathname === item.href
+                    ? "text-primary bg-secondary"
+                    : "text-foreground/80 hover:text-primary hover:bg-secondary"
+                }`}
                 onClick={() => setMobileOpen(false)}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
-            <a href="#help" className="btn-coral mt-3 text-center">
+            <Link to="/get-help" className="btn-coral mt-3 text-center" onClick={() => setMobileOpen(false)}>
               GET HELP NOW
-            </a>
+            </Link>
           </nav>
         </div>
       )}
