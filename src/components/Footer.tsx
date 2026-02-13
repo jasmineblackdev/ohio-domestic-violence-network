@@ -1,4 +1,5 @@
 import { MapPin, Phone, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -7,12 +8,12 @@ const Footer = () => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
+            <Link to="/" className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-lg bg-primary flex items-center justify-center">
                 <span className="text-primary-foreground font-heading font-bold">O</span>
               </div>
               <span className="font-heading font-bold text-lg text-background">ODVN</span>
-            </div>
+            </Link>
             <p className="font-body text-sm leading-relaxed opacity-70 mb-6">
               Supporting and strengthening Ohio's response to domestic violence since 1982.
             </p>
@@ -33,28 +34,43 @@ const Footer = () => {
           {[
             {
               title: "Survivors",
-              links: ["Get Help Now", "Safety Planning", "Legal Resources", "Relocation Program"],
+              links: [
+                { label: "Get Help Now", to: "/get-help" },
+                { label: "Safety Planning", to: "/survivors" },
+                { label: "Legal Resources", to: "/survivors" },
+                { label: "Relocation Program", to: "/survivors" },
+              ],
             },
             {
               title: "Advocates",
-              links: ["Training Calendar", "Resource Center", "Membership", "Coalition Manager"],
+              links: [
+                { label: "Training Calendar", to: "/training" },
+                { label: "Resource Center", to: "/advocates" },
+                { label: "Membership", to: "/advocates" },
+                { label: "Coalition Manager", to: "/advocates" },
+              ],
             },
             {
               title: "Organization",
-              links: ["About ODVN", "Policy & Press", "Careers", "Donate"],
+              links: [
+                { label: "About ODVN", to: "/about" },
+                { label: "Policy & Press", to: "/policy" },
+                { label: "Contact", to: "/contact" },
+                { label: "Donate", to: "/donate" },
+              ],
             },
           ].map((col) => (
             <div key={col.title}>
               <h4 className="font-heading font-bold text-sm text-background mb-4">{col.title}</h4>
               <ul className="space-y-2.5">
                 {col.links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
+                  <li key={link.label}>
+                    <Link
+                      to={link.to}
                       className="font-body text-sm opacity-60 hover:opacity-100 transition-opacity"
                     >
-                      {link}
-                    </a>
+                      {link.label}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -65,9 +81,9 @@ const Footer = () => {
         <div className="border-t border-background/10 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs opacity-50">
           <p>© {new Date().getFullYear()} Ohio Domestic Violence Network. All rights reserved.</p>
           <div className="flex gap-6">
-            <a href="#" className="hover:opacity-100 transition-opacity">Privacy Policy</a>
-            <a href="#" className="hover:opacity-100 transition-opacity">Terms</a>
-            <a href="#" className="hover:opacity-100 transition-opacity">Accessibility</a>
+            <span className="hover:opacity-100 transition-opacity cursor-pointer">Privacy Policy</span>
+            <span className="hover:opacity-100 transition-opacity cursor-pointer">Terms</span>
+            <span className="hover:opacity-100 transition-opacity cursor-pointer">Accessibility</span>
           </div>
         </div>
       </div>
